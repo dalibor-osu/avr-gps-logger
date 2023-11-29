@@ -13,7 +13,7 @@ Komplexný systém zaznamenávania údajov pomocou mikrokontroléra AVR. Systém
 
 ## Popis Hardwaru
 
-# Komponenty
+### Komponenty
 * OLED displej
 
 
