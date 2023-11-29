@@ -1,25 +1,28 @@
-# Recommended README.md file structure
+# GPS-based environmental sensor data logger
 
-### Team members
+### Členovia týmu
 
-* Member 1 (responsible for ...)
-* Member 2 (responsible for ...)
-* Member 3 (responsible for ...)
+* Dalibor Dřevojánek
+* Maxim Jehlička
+* Frederic Michael Buberník
+* Maroš Fandel 
 
-## Theoretical description and explanation
+## Teoretický popis 
 
-Enter a description of the problem and how to solve it.
+Komplexný systém zaznamenávania údajov pomocou mikrokontroléra AVR. Systém integruje funkciu GPS na sledovanie polohy a senzor prostredia I2C na zachytávanie údajov súvisiacich s podmienkami prostredia. Cieľom projektu je zaznamenávať a zobrazovať údaje zo senzorov a poskytovať možnosť exportovania zozbieraných informácií na analýzu.
 
-## Hardware description of demo application
+## Popis Hardwaru
 
-Insert descriptive text and schematic(s) of your implementation.
+Komponenty
+OLED displej
 
-## Software description
+
+## Popis Softwaru
 
 Put flowchats of your algorithm(s) and direct links to source files in `src` or `lib` folders.
 
-## Instructions
+## Používateľský návod
 
 Write an instruction manual for your application, including photos and a link to a short app video.
 
-## References
+## Referencie
