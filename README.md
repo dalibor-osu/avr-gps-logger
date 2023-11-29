@@ -47,4 +47,5 @@ Write an instruction manual for your application, including photos and a link to
 
 ## Referencie
 * https://content.u-blox.com/sites/default/files/products/documents/NEO-6_DataSheet_%28GPS.G6-HW-09005%29.pdf
-* 
+* https://robototehnika.ru/file/DHT12.pdf
+* https://www.vishay.com/docs/37902/oled128o064dbpp3n00000.pdf
