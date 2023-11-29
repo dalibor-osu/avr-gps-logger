@@ -33,8 +33,18 @@ Cez uart knižnicu riadime GPS modul a cez I2C(TWI) riadíme OLED displaj a senz
    │   └── timer.h
    ├── lib             // Libraries
    │   └── uart        // Peter Fleury's UART library
-   │       ├── uart.c
-   │       └── uart.h
+   │   │   ├── uart.c
+   │   │   └── uart.h
+   │   └── gpio
+   │   │    ├── gpio.c
+   │   │    └── gpio.h
+   │   └── oled
+   │   │    ├── oled.c
+   │   │    ├── oled.h
+   │   │    └── font.h
+   │   └── twi
+   │        ├── twi.c 
+   │        └── twi.h 
    ├── src             // Source file(s)      
    │   └── main.c
    ├── test            // No need this
