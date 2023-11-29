@@ -25,6 +25,8 @@ Komplexný systém zaznamenávania údajov pomocou mikrokontroléra AVR. Systém
 
 Cez uart knižnicu riadime GPS modul a cez I2C(TWI) riadíme OLED displaj a senzor vlhkosti.
 
+Popis gpio, oled, main!!!
+
  Štruktúra projektu vyzerá nasledovne:
 
    ```c
