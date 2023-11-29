@@ -13,10 +13,11 @@ Komplexný systém zaznamenávania údajov pomocou mikrokontroléra AVR. Systém
 
 ## Popis Hardwaru
 
+
+
 ### Komponenty
 * Arduino Uno board
 * OLED display - I2C OLED display 128x64
-* Napájanie obvodu - 5V
 * GPS module - GPS module NEO-6M GYNEO6MV2
 * DHT12 - I2C humidity and temperature sensor
 
@@ -24,7 +25,23 @@ Komplexný systém zaznamenávania údajov pomocou mikrokontroléra AVR. Systém
 
 ## Popis Softwaru
 
-Put flowchats of your algorithm(s) and direct links to source files in `src` or `lib` folders.
+Cez uart knižnicu riadime GPS modul a cez I2C(TWI) riadíme OLED displaj a senzor vlhkosti.
+
+ The final project structure should look like this:
+
+   ```c
+   AVR-GPS-LOGGER      // PlatfomIO project
+   ├── include         // Included file(s)
+   │   └── timer.h
+   ├── lib             // Libraries
+   │   └── uart        // Peter Fleury's UART library
+   │       ├── uart.c
+   │       └── uart.h
+   ├── src             // Source file(s)      
+   │   └── main.c
+   ├── test            // No need this
+   └── platformio.ini  // Project Configuration File
+   ```
 
 ## Používateľský návod
 
