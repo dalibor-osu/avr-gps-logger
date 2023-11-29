@@ -13,8 +13,6 @@ Komplexný systém zaznamenávania údajov pomocou mikrokontroléra AVR. Systém
 
 ## Popis Hardwaru
 
-
-
 ### Komponenty
 * Arduino Uno board
 * OLED display - I2C OLED display 128x64
@@ -27,7 +25,7 @@ Komplexný systém zaznamenávania údajov pomocou mikrokontroléra AVR. Systém
 
 Cez uart knižnicu riadime GPS modul a cez I2C(TWI) riadíme OLED displaj a senzor vlhkosti.
 
- The final project structure should look like this:
+ Štruktúra projektu vyzerá nasledovne:
 
    ```c
    AVR-GPS-LOGGER      // PlatfomIO project
@@ -48,3 +46,5 @@ Cez uart knižnicu riadime GPS modul a cez I2C(TWI) riadíme OLED displaj a senz
 Write an instruction manual for your application, including photos and a link to a short app video.
 
 ## Referencie
+* https://content.u-blox.com/sites/default/files/products/documents/NEO-6_DataSheet_%28GPS.G6-HW-09005%29.pdf
+* 
