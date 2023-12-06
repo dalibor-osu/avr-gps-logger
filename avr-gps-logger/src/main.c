@@ -39,15 +39,21 @@ struct GPS_data
     char longitude[20];
     char longitude_dir[1];
     char utc[10];
-    char data_status[1];
+    char data_status;
     char mode_ind[1];
 } gps_data;
 
 char message_buffer[100] = {0};
-int current_index = 0;
-int read_line = 0;
+char gnss_log[5] = "GPGLL";
+uint8_t current_index = 0;
+uint8_t line_finished = 0;
+uint8_t read_line = 0;
+uint8_t reset_buffer = 0;
+uint8_t correct_line = 0;
+uint8_t print_line = 0;
 
 void print_data();
+void reset_message_buffer();
 
 // Flag for printing new data from sensor
 volatile uint8_t new_sensor_data = 0;
@@ -91,7 +97,7 @@ int main(void)
     TIM1_OVF_1SEC
     TIM1_OVF_ENABLE
 
-    TIM0_OVF_128US
+    TIM0_OVF_1MS
     TIM0_OVF_ENABLE
 
     sei();
@@ -132,6 +138,98 @@ int main(void)
             // Do not print it again and wait for the new data
             new_sensor_data = 0;
         }
+
+                if (reset_buffer == 1) {
+            reset_message_buffer();
+        }
+
+        if (line_finished == 1) {
+            correct_line = 1;
+            for (size_t i = 0; i < 5; i++)
+            {
+                if (message_buffer[i] != gnss_log[i]) {
+                    correct_line = 0;
+                    line_finished = 0;
+                    reset_buffer = 1;
+                    reset_message_buffer();
+                    break;
+                }
+            }
+        }
+
+        if (correct_line != 1) {
+            continue;
+        }
+
+        if (correct_line == 1) {
+            uint8_t current_data = 0;
+            uint8_t char_offset = 0;
+            for (size_t i = 0; i < 100; i++)
+            {
+                char current_char = message_buffer[i];
+
+                if (current_char == ',') {
+                    current_data++;
+                    char_offset = 0;
+                    continue;
+                }
+
+                if (current_char == '\0') {
+                    break;
+                }
+
+
+                switch (current_data)
+                {
+                case 0:
+                    gps_data.header[char_offset] = current_char;
+                    break;
+                
+                case 1:
+                    gps_data.latitude[char_offset] = current_char;
+                    break;
+
+                case 2:
+                    gps_data.latitude_dir[char_offset] = current_char;
+                    break;
+
+                case 3:
+                    gps_data.longitude[char_offset] = current_char;
+                    break;
+
+                case 4:
+                    gps_data.longitude_dir[char_offset] = current_char;
+                    break;
+
+                case 5:
+                    gps_data.utc[char_offset] = current_char;
+                    break;
+
+                case 6:
+                    gps_data.data_status = current_char;
+                    break;
+
+                case 7:
+                    gps_data.mode_ind[char_offset] = current_char;
+                    break;
+                
+                default:
+                    continue;
+                }
+
+                char_offset++;
+            }
+
+            print_line = 1;
+            line_finished = 0;
+            correct_line = 0;
+        }
+
+        if (print_line == 1) {
+            print_data();
+            print_line = 0;
+        }
+
     }
 
     // Will never reach this
@@ -176,152 +274,213 @@ ISR(TIMER1_OVF_vect)
 
 ISR(TIMER0_OVF_vect)
 {
-    char gnss_log[] = "GPGLL";
-    uint8_t value;
-    uint8_t index = 0;
-
-    static char message_buffer[100] = {0};
-    static int reading_line = 0;
-    static char line_identifier_buffer[5] = {0};
-    static int current_index = 0;
-
-    value = uart_getc();
-
-    if (value == '\0') {  // Data available from UART
+    if (line_finished == 1) {
         return;
     }
 
-    if (value == '$') {  // Data available from UART
-        reading_line = 1;
+    uint8_t value = uart_getc();
+
+    if (value == '$') {
+        line_finished = 0;
+        read_line = 1;
+        current_index = 0;
         return;
     }
 
-    if (reading_line != 1) {
+    if (value == '\n') {
+        line_finished = 1;
+        read_line = 0;
         return;
     }
 
-    if (current_index < 5) {
-        line_identifier_buffer[current_index] = value;
-    }
-    else
-    {
-        
+    if (read_line == 1) {
+        message_buffer[current_index] = value;
+        current_index++;
     }
 
     return;
-    if (value == '$') {
-        for (size_t i = 0; i < 100; i++)
-        {
-            message_buffer[i] = '\0';
-        };
+
+    // if (value == '\0') {  // Data available from UART
+    //     return;
+    // }
+
+    // if (value == '$') {  // Data available from UART
+    //     reading_line = 1;
+    //     return;
+    // }
+
+    // if (reading_line != 1) {
+    //     return;
+    // }
+
+    // if (current_index < 5) {
+    //     line_identifier_buffer[current_index] = value;
+    // }
+    // else
+    // {
         
-        reading_line = 1;
-        uart_puts("Reading new line \n");
-        return;
-    }
+    // }
 
-    if (reading_line != 1) {
-        return;
-    }
+    // if (value == '$') {
+    //     for (size_t i = 0; i < 100; i++)
+    //     {
+    //         message_buffer[i] = '\0';
+    //     };
+        
+    //     reading_line = 1;
+    //     uart_puts("Reading new line \n");
+    //     return;
+    // }
 
-    while (message_buffer[index] != '\0')
-    {
-        uart_puts("increasing index \n");
-        index++;
-    }
+    // if (reading_line != 1) {
+    //     return;
+    // }
 
-    message_buffer[index] = value;
+    // while (message_buffer[index] != '\0')
+    // {
+    //     uart_puts("increasing index \n");
+    //     index++;
+    // }
 
-    if (value != '\n') {
-        uart_puts("not new line");
-        return;
-    }
+    // message_buffer[index] = value;
 
-    // check if row is GPGLL
-    for (size_t i = 0; i < 5; i++)
-    {
-        if (message_buffer[i] != gnss_log[i]) {
-            uart_puts("not GPGLL: ");
+    // if (value != '\n') {
+    //     uart_puts("not new line");
+    //     return;
+    // }
 
-            for (size_t j = 0; j < 5; j++)
-            {
-                uart_putc(message_buffer[j]);
-            }
+    // // check if row is GPGLL
+    // for (size_t i = 0; i < 5; i++)
+    // {
+    //     if (message_buffer[i] != gnss_log[i]) {
+    //         uart_puts("not GPGLL: ");
+
+    //         for (size_t j = 0; j < 5; j++)
+    //         {
+    //             uart_putc(message_buffer[j]);
+    //         }
             
 
-            uart_putc('\n');
-            return;
-        }
-    }
+    //         uart_putc('\n');
+    //         return;
+    //     }
+    // }
 
-    int current_data = 0;
-    int current_char = 0;
-    int char_offset = 0;
+    // int current_data = 0;
+    // int current_char = 0;
+    // int char_offset = 0;
 
-    while(current_char < 100) {
+    // while(current_char < 100) {
 
-        if (message_buffer[current_char] == ',') {
-            uart_puts("skipping on ,");
-            current_data++;
-            char_offset = 0;
-        }
+    //     if (message_buffer[current_char] == ',') {
+    //         uart_puts("skipping on ,");
+    //         current_data++;
+    //         char_offset = 0;
+    //     }
 
-        if (message_buffer[current_char] == '*') {
-            uart_puts("breaking on *");
-            break;
-        }
+    //     if (message_buffer[current_char] == '*') {
+    //         uart_puts("breaking on *");
+    //         break;
+    //     }
 
-        switch (current_data)
-        {
-        case 0:
-            gps_data.header[char_offset] = message_buffer[current_char];
-            break;
+    //     switch (current_data)
+    //     {
+    //     case 0:
+    //         gps_data.header[char_offset] = message_buffer[current_char];
+    //         break;
         
-        case 1:
-            gps_data.latitude[char_offset] = message_buffer[current_char];
-            break;
+    //     case 1:
+    //         gps_data.latitude[char_offset] = message_buffer[current_char];
+    //         break;
 
-        case 2:
-            gps_data.latitude_dir[char_offset] = message_buffer[current_char];
-            break;
+    //     case 2:
+    //         gps_data.latitude_dir[char_offset] = message_buffer[current_char];
+    //         break;
 
-        case 3:
-            gps_data.longitude[char_offset] = message_buffer[current_char];
-            break;
+    //     case 3:
+    //         gps_data.longitude[char_offset] = message_buffer[current_char];
+    //         break;
 
-        case 4:
-            gps_data.longitude_dir[char_offset] = message_buffer[current_char];
-            break;
+    //     case 4:
+    //         gps_data.longitude_dir[char_offset] = message_buffer[current_char];
+    //         break;
 
-        case 5:
-            gps_data.utc[char_offset] = message_buffer[current_char];
-            break;
+    //     case 5:
+    //         gps_data.utc[char_offset] = message_buffer[current_char];
+    //         break;
 
-        case 6:
-            gps_data.data_status[char_offset] = message_buffer[current_char];
-            break;
+    //     case 6:
+    //         gps_data.data_status[char_offset] = message_buffer[current_char];
+    //         break;
 
-        case 7:
-            gps_data.mode_ind[char_offset] = message_buffer[current_char];
-            break;
+    //     case 7:
+    //         gps_data.mode_ind[char_offset] = message_buffer[current_char];
+    //         break;
         
-        default:
-            break;
-        }
+    //     default:
+    //         break;
+    //     }
         
-        current_char++;
-    }
+    //     current_char++;
+    // }
 
-    print_data();
+    // print_data();
+}
+
+void print_field(char* title, char* value) {
+    uart_puts(title);
+    uart_puts(": ");
+    uart_puts(value);
+    uart_puts(", ");
 }
 
 void print_data() {
-    uart_puts(gps_data.header);
-    uart_putc('\n');
+    if (gps_data.data_status == 'V') {
+        uart_puts("GPS Status: Invalid, ");
+    }
+    else
+    {
+        uart_puts("UTC: ");
+        uart_puts(gps_data.utc);
+        uart_puts(", ");
 
-    uart_puts(gps_data.latitude);
-    uart_putc('\n');
+        uart_puts("Lat: ");
+        uart_puts(gps_data.latitude);
+        uart_putc(' ');
+        uart_puts(gps_data.latitude_dir);
+        uart_puts(", ");
 
-    uart_puts(gps_data.longitude);
-    uart_putc('\n');
+        uart_puts("Long: ");
+        uart_puts(gps_data.longitude);
+        uart_putc(' ');
+        uart_puts(gps_data.longitude_dir);
+        uart_puts(", ");
+    }
+
+    char string[2];  // String for converting numbers by itoa()
+
+    uart_puts("Temp: ");
+    itoa(dht12.temp_int, string, 10);
+    uart_puts(string);
+    uart_puts(".");
+    itoa(dht12.temp_dec, string, 10);
+    uart_puts(string);
+    uart_puts(" °C, ");
+
+    uart_puts("Hum: ");
+    itoa(dht12.hum_int, string, 10);
+    uart_puts(string);
+    uart_puts(".");
+    itoa(dht12.hum_dec, string, 10);
+    uart_puts(string);
+    uart_puts(" %\n");
+}
+
+void reset_message_buffer() {
+    for (size_t i = 0; i < 100; i++)
+    {
+        message_buffer[i] = '\0';
+    }
+    
+    reset_buffer = 0;
 }
