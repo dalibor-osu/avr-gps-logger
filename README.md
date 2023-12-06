@@ -34,9 +34,6 @@ Popis gpio, oled, main!!!
    ├── include         // Included file(s)
    │   └── timer.h
    ├── lib             // Libraries
-   │   └── uart        // Peter Fleury's UART library
-   │   │   ├── uart.c
-   │   │   └── uart.h
    │   └── gpio
    │   │    ├── gpio.c
    │   │    └── gpio.h
@@ -45,8 +42,11 @@ Popis gpio, oled, main!!!
    │   │    ├── oled.h
    │   │    └── font.h
    │   └── twi
-   │        ├── twi.c 
-   │        └── twi.h 
+   │   │    ├── twi.c 
+   │   │    └── twi.h
+   │   └── uart        // Peter Fleury's UART library
+   │       ├── uart.c
+   │       └── uart.h
    ├── src             // Source file(s)      
    │   └── main.c
    ├── test            // No need this
