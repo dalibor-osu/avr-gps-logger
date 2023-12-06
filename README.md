@@ -23,6 +23,8 @@ Komplexný systém zaznamenávania údajov pomocou mikrokontroléra AVR. Systém
 
 ![370153749_786611976812593_4385338365502907530_n](https://github.com/dalibor-osu/avr-gps-logger/assets/124789239/f20758bb-d2ec-438a-bbb1-ed6dc5454a18)
 
+![shcema](https://github.com/dalibor-osu/avr-gps-logger/assets/124789239/10efadbf-f61a-4e46-8765-3eac135d7ddb)
+
 ## Popis Softwaru
 
 Cez uart knižnicu riadime GPS modul a cez I2C(TWI) riadíme OLED displaj a senzor vlhkosti.
