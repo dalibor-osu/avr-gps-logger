@@ -27,6 +27,12 @@ Réalne zapojenie
 
 ![370153749_786611976812593_4385338365502907530_n](https://github.com/dalibor-osu/avr-gps-logger/assets/124789239/f20758bb-d2ec-438a-bbb1-ed6dc5454a18)
 
+![1](https://github.com/dalibor-osu/avr-gps-logger/assets/124789239/172508a6-c2c8-4e4d-a066-e0fd3001a7e8)
+
+![2](https://github.com/dalibor-osu/avr-gps-logger/assets/124789239/b3f3c8ab-14ad-4d99-8db4-f4bfcdb9ae16)
+
+![3](https://github.com/dalibor-osu/avr-gps-logger/assets/124789239/8035de33-d2a5-407f-83c7-5f127132864c)
+
 ## Popis Softwaru
 
 Cez uart knižnicu riadime GPS modul a cez I2C(TWI) riadíme OLED displaj a senzor vlhkosti.
