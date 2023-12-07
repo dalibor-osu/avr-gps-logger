@@ -19,7 +19,10 @@ Komplexný systém zaznamenávania údajov pomocou mikrokontroléra AVR. Systém
 * GPS module - GPS module NEO-6M GYNEO6MV2
 * DHT12 - I2C humidity and temperature sensor
 
-Schéma zapojenia:
+Block diagram:
+
+
+Ciruit diagram:
 ![shcema](https://github.com/dalibor-osu/avr-gps-logger/assets/124789239/10efadbf-f61a-4e46-8765-3eac135d7ddb)
 
 Réalne zapojenie:
