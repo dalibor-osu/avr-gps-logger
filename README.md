@@ -70,11 +70,11 @@ Cez knižnicu uart riadime GPS modul, ktorý cez tento protokol komunikuje. Ďal
    └── platformio.ini  // Project Configuration File
    ```
 
-Celá logika programu je napsána v souboru main.c. Jako první dojde k inicializaci oled displeje, uart komunikace a časovačů. Nekonečná smyčka pak obsahuje několik částí. První z nich je výpis informací na oled displej, kde můžeme vidět aktuální stav teploty a vlhkosti snímané senzorem. K tomuto výpisu dojde pouze v momentě, kdy jsou připravena nová data. Násladně se kontroluje, zda se má obnovit buffer pro GPS zprávů. Tato obnova spočívá v jednoduchém naplnení bufferu znakem '\0'. Následně dochází ke kontrole aktuálního řádku získaného z gps modulu. Všechna pro nás potřebná data se nachazí na řádku s hlavičkou "GPGLL", proto dochází ke kontrole této hlavička a je-li odlišná, řádek je přeskočen. V případě, že se jedná o námi chtěný řádek, převedou se data ze stringu do připravené struktury odpovídající struktuře dat na řádku GPS_data. Po převedení dat se tato data vytisknou přes uart do připojené konzole.
+Celá logika programu je napísaná v súbore main.c. Ako prvé dôjde k inicializácii oled displeja, uart komunikácie a časovačov. Nekonečná slučka potom obsahuje niekoľko častí. Prvý z nich je výpis informácií na oled displej, kde môžeme vidieť aktuálny stav teploty a vlhkosti snímanej senzorom. K tomuto výpisu dôjde iba v momente, keď sú pripravené nové dáta. Následne sa kontroluje, či sa má obnoviť buffer pre GPS správu. Táto obnova spočíva v jednoduchom naplnení bufferu znakom '\0'. Následne dochádza ku kontrole aktuálneho riadku získaného z gps modulu. Všetky pre nás potrebné dáta sa nachádzajú na riadku s hlavičkou "GPGLL", preto dochádza ku kontrole tejto hlavičky a ak je odlišná, riadok je preskočený. V prípade, že sa jedná o nami chcený riadok, prevedú sa dáta zo stringu do pripravenej štruktúry zodpovedajúcej štruktúre dát na riadku GPS_data. Po prevedení dát sa tieto dáta vytlačia cez uart do pripojenej konzoly.
 
-Program také obsahuje dvě přerušení spuštěné časovači. První přerušení spouští časovač TIM0 každou milisekundu a slouží ke čtení dat přes uart z gps modulu. Druhé přerušení spouští časovač TIM1 a slouží pro čtení dat ze senzoru snímajícího teplotu a vlhkost ovzduší.
+Program tiež obsahuje dve prerušenia spustené časovačmi. Prvé prerušenie spúšťa časovač TIM0 každú milisekundu a slúži na čítanie dát cez uart z gps modulu. Druhé prerušenie spúšťa časovač TIM1 a slúži na čítanie dát zo senzora snímajúceho teplotu a vlhkosť ovzdušia.
 
-Logiku programu můžeme vidět na následujícím diagramu:
+Logiku programu môžeme vidieť na nasledujúcom diagrame:
 
 ![de2_diagram](https://github.com/dalibor-osu/avr-gps-logger/assets/77931392/ad0bc3f7-5111-47fc-8da6-ba7eb121a62b)
 
