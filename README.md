@@ -42,9 +42,9 @@ Reálne zapojenie:
 
 Cez uart knižnicu riadime GPS modul a cez I2C(TWI) riadíme OLED displaj a senzor vlhkosti.
 
-Popis gpio, oled, main!!!
+Přes knihovnu uart řídíme GPS modul, který přes tento protokol komunikuje. Dále využíváme knihovnu TWI, která obsahuje funkce potřebné pro ovládání I2C komunikace mezi senzorem na snímání vlhkosti a teploty a arduinem. Třetí knihovnou je "oled" obsahující funkce pro vypisování a komunikaci s oled displejem. Pro ovládání časovačů využíváme knihovnu "timer".
 
- Štruktúra projektu vyzerá nasledovne:
+ Struktura projektu:
 
    ```c
    AVR-GPS-LOGGER      // PlatfomIO project
@@ -69,6 +69,12 @@ Popis gpio, oled, main!!!
    ├── test            // No need this
    └── platformio.ini  // Project Configuration File
    ```
+
+Celá logika programu je napsána v souboru main.c. Jako první dojde k inicializaci oled displeje, uart komunikace a časovačů. Nekonečná smyčka pak obsahuje několik částí. První z nich je výpis informací na oled displej, kde můžeme vidět aktuální stav teploty a vlhkosti snímané senzorem. K tomuto výpisu dojde pouze v momentě, kdy jsou připravena nová data. Násladně se kontroluje, zda se má obnovit buffer pro GPS zprávů. Tato obnova spočívá v jednoduchém naplnení bufferu znakem '\0'. Následně dochází ke kontrole aktuálního řádku získaného z gps modulu. Všechna pro nás potřebná data se nachazí na řádku s hlavičkou "GPGLL", proto dochází ke kontrole této hlavička a je-li odlišná, řádek je přeskočen. V případě, že se jedná o námi chtěný řádek, převedou se data ze stringu do připravené struktury odpovídající struktuře dat na řádku GPS_data. Po převedení dat se tato data vytisknou přes uart do připojené konzole.
+
+Program také obsahuje dvě přerušení spuštěné časovači. První přerušení spouští časovač TIM0 každou milisekundu a slouží ke čtení dat přes uart z gps modulu. Druhé přerušení spouští časovač TIM1 a slouží pro čtení dat ze senzoru snímajícího teplotu a vlhkost ovzduší.
+
+Logiku programu můžeme vidět na následujícím diagramu:
 
 ## Používateľský návod
 
