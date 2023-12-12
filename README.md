@@ -42,7 +42,7 @@ Reálne zapojenie:
 
 Cez uart knižnicu riadime GPS modul a cez I2C(TWI) riadíme OLED displaj a senzor vlhkosti.
 
-Přes knihovnu uart řídíme GPS modul, který přes tento protokol komunikuje. Dále využíváme knihovnu TWI, která obsahuje funkce potřebné pro ovládání I2C komunikace mezi senzorem na snímání vlhkosti a teploty a arduinem. Třetí knihovnou je "oled" obsahující funkce pro vypisování a komunikaci s oled displejem. Pro ovládání časovačů využíváme knihovnu "timer".
+Cez knižnicu uart riadime GPS modul, ktorý cez tento protokol komunikuje. Ďalej využívame knižnicu TWI, ktorá obsahuje funkcie potrebné na ovládanie I2C komunikácie medzi senzorom na snímanie vlhkosti a teploty a arduínom. Treťou knižnicou je "oled" obsahujúci funkcie pre vypisovanie a komunikáciu s oled displejom. Na ovládanie časovačov využívame knižnicu "timer".
 
  Struktura projektu:
 
