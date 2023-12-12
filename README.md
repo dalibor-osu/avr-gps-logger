@@ -22,7 +22,7 @@ Komplexný systém zaznamenávania údajov pomocou mikrokontroléra AVR. Systém
 Block diagram:
 ![bloková schéma](https://github.com/dalibor-osu/avr-gps-logger/assets/124789239/aecf42dd-40f4-42b7-9335-89453f5ede8b)
 
-Ciruit diagram:
+Circuit diagram:
 ![shcema](https://github.com/dalibor-osu/avr-gps-logger/assets/124789239/10efadbf-f61a-4e46-8765-3eac135d7ddb)
 
 Réalne zapojenie:
