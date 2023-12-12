@@ -42,7 +42,7 @@ Reálne zapojenie:
 
 Cez knižnicu uart riadime GPS modul, ktorý cez tento protokol komunikuje. Ďalej využívame knižnicu TWI, ktorá obsahuje funkcie potrebné na ovládanie I2C komunikácie medzi senzorom na snímanie vlhkosti a teploty a arduínom. Treťou knižnicou je "oled" obsahujúci funkcie pre vypisovanie a komunikáciu s oled displejom. Na ovládanie časovačov využívame knižnicu "timer".
 
- Struktura projektu:
+ Štruktúra projektu:
 
    ```c
    AVR-GPS-LOGGER      // PlatfomIO project
