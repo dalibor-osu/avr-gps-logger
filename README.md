@@ -72,7 +72,7 @@ Popis gpio, oled, main!!!
 
 ## Používateľský návod
 
-Po pripojení dosky k počítaču je možné čítať informácie o polohe, teplote a vlhkosti vzduchu v termináli, alebo ich pomocou programu Putty ukladať do textového súboru. Ak sa GPS modul nie je shopný pripojiť k satelitu, zobrazí sa správa GPS invalid a informácie o teplote a vlhkosti vzduchu budú stále vypísané
+Po pripojení dosky k počítaču je možné čítať informácie o polohe, teplote a vlhkosti vzduchu v termináli, alebo ich pomocou programu Putty ukladať do textového súboru. Ak sa GPS modul nie je shopný pripojiť k satelitu, zobrazí sa správa GPS invalid a informácie o teplote a vlhkosti vzduchu budú stále vypísané.
  
 ## Referencie
 * https://content.u-blox.com/sites/default/files/products/documents/NEO-6_DataSheet_%28GPS.G6-HW-09005%29.pdf
