@@ -40,8 +40,6 @@ Reálne zapojenie:
 
 ## Popis Softwaru
 
-Cez uart knižnicu riadime GPS modul a cez I2C(TWI) riadíme OLED displaj a senzor vlhkosti.
-
 Cez knižnicu uart riadime GPS modul, ktorý cez tento protokol komunikuje. Ďalej využívame knižnicu TWI, ktorá obsahuje funkcie potrebné na ovládanie I2C komunikácie medzi senzorom na snímanie vlhkosti a teploty a arduínom. Treťou knižnicou je "oled" obsahujúci funkcie pre vypisovanie a komunikáciu s oled displejom. Na ovládanie časovačov využívame knižnicu "timer".
 
  Struktura projektu:
@@ -70,7 +68,7 @@ Cez knižnicu uart riadime GPS modul, ktorý cez tento protokol komunikuje. Ďal
    └── platformio.ini  // Project Configuration File
    ```
 
-Celá logika programu je napísaná v súbore main.c. Ako prvé dôjde k inicializácii oled displeja, uart komunikácie a časovačov. Nekonečná slučka potom obsahuje niekoľko častí. Prvý z nich je výpis informácií na oled displej, kde môžeme vidieť aktuálny stav teploty a vlhkosti snímanej senzorom. K tomuto výpisu dôjde iba v momente, keď sú pripravené nové dáta. Následne sa kontroluje, či sa má obnoviť buffer pre GPS správu. Táto obnova spočíva v jednoduchom naplnení bufferu znakom '\0'. Následne dochádza ku kontrole aktuálneho riadku získaného z gps modulu. Všetky pre nás potrebné dáta sa nachádzajú na riadku s hlavičkou "GPGLL", preto dochádza ku kontrole tejto hlavičky a ak je odlišná, riadok je preskočený. V prípade, že sa jedná o nami chcený riadok, prevedú sa dáta zo stringu do pripravenej štruktúry zodpovedajúcej štruktúre dát na riadku GPS_data. Po prevedení dát sa tieto dáta vytlačia cez uart do pripojenej konzoly.
+Celá logika programu je napísaná v súbore main.c. Ako prvé dôjde k inicializácii oled displeja, uart komunikácie a časovačov. Nekonečná slučka potom obsahuje niekoľko častí. Prvá z nich je výpis informácií na oled displej, kde môžeme vidieť aktuálny stav teploty a vlhkosti snímanej senzorom. K tomuto výpisu dôjde iba v momente, keď sú pripravené nové dáta. Následne sa kontroluje, či sa má obnoviť buffer pre GPS správu. Táto obnova spočíva v jednoduchom naplnení bufferu znakom '\0'. Následne dochádza ku kontrole aktuálneho riadku získaného z gps modulu. Všetky pre nás potrebné dáta sa nachádzajú na riadku s hlavičkou "GPGLL", preto dochádza ku kontrole tejto hlavičky a ak je odlišná, riadok je preskočený. V prípade, že sa jedná o nami chcený riadok, prevedú sa dáta zo stringu do pripravenej štruktúry zodpovedajúcej štruktúre dát na riadku GPS_data. Po prevedení dát sa tieto dáta vytlačia cez uart do pripojenej konzoly.
 
 Program tiež obsahuje dve prerušenia spustené časovačmi. Prvé prerušenie spúšťa časovač TIM0 každú milisekundu a slúži na čítanie dát cez uart z gps modulu. Druhé prerušenie spúšťa časovač TIM1 a slúži na čítanie dát zo senzora snímajúceho teplotu a vlhkosť ovzdušia.
 
