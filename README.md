@@ -25,7 +25,7 @@ Block diagram:
 Circuit diagram:
 ![shcema](https://github.com/dalibor-osu/avr-gps-logger/assets/124789239/10efadbf-f61a-4e46-8765-3eac135d7ddb)
 
-Réalne zapojenie:
+Reálne zapojenie:
 * Prvá varianta:
 ![405266042_366938725840177_5990859187008306452_n](https://github.com/Bubo8521/digital_electronics-2/assets/124887713/6e1b9259-d891-40e4-b476-ed13594b3523)
 
