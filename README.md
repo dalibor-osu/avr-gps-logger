@@ -76,6 +76,8 @@ Program také obsahuje dvě přerušení spuštěné časovači. První přeruš
 
 Logiku programu můžeme vidět na následujícím diagramu:
 
+![de2_diagram](https://github.com/dalibor-osu/avr-gps-logger/assets/77931392/ad0bc3f7-5111-47fc-8da6-ba7eb121a62b)
+
 ## Používateľský návod
 
 Po pripojení dosky k počítaču je možné čítať informácie o polohe, teplote a vlhkosti vzduchu v termináli, alebo ich pomocou programu Putty ukladať do textového súboru. Ak sa GPS modul nie je shopný pripojiť k satelitu, zobrazí sa správa GPS invalid a informácie o teplote a vlhkosti vzduchu budú stále vypísané.
