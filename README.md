@@ -72,8 +72,7 @@ Popis gpio, oled, main!!!
 
 ## Používateľský návod
 
-Write an instruction manual for your application, including photos and a link to a short app video.
-
+Po připojení desky k počítači je možné číst informace o poloze, teplotě a vlhkosti vzduchu v terminálu, nebo je pomocí programu Putty ukádat do textového souboru. Pokud se modul GPS není shopný připojit k satelitu zobrazí se zpráva GPS invalid a infomace o teplotě a vlhkosti vzduchu budou stále vypsnány. 
 ## Referencie
 * https://content.u-blox.com/sites/default/files/products/documents/NEO-6_DataSheet_%28GPS.G6-HW-09005%29.pdf
  
